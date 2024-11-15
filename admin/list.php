@@ -2,7 +2,7 @@
 
 // List the currently used names on our BlueSky domain
 
-require('../config.php') ;
+require('config.php') ;
 require('auth.php') ;
 
 $db = new SQLite3('did-map.sqlite3', SQLITE3_OPEN_READONLY) ;
