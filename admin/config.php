@@ -8,7 +8,7 @@
 define('BSKY_DOMAIN', 'bluf.social') ;
 
 // if a user lands on the index page, where do you want to redirect them to
-define('REDIRECT_TO', 'http://bluf.com') ;
+define('REDIRECT_TO', 'https://bluf.com') ;
 
 // simple password protection of the admin pages
 define('ADMIN_PASSWORD', 'lunatic-satellite-bully') ;
