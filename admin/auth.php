@@ -5,7 +5,7 @@
 // admin folder, or add some code to link to an existing authentication
 // system
 
-require '../config.php' ;
+require 'config.php' ;
 
 function sorry()
 {
