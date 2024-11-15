@@ -2,7 +2,7 @@
 
 // Create a new user entry in the table, for our custom domain
 
-require('../config.php') ;
+require('config.php') ;
 require('auth.php') ;
 
 // make sure the database exists
