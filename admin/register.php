@@ -26,11 +26,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$did = trim($_REQUEST['did']) ;
 
-	$register = $db->prepare("INSERT INTO usermap VALUES ( :u, :d )") ;
-	$register->bindParam(':u', $handle, SQLITE3_TEXT) ;
-	$register->bindParam(':d', $did, SQLITE3_TEXT) ;
+	// check to see if we have the handle or the did registered
+	$check = $db->prepare('SELECT * FROM usermap WHERE user = :u OR did = :d') ;
+	$check->bindParam(':u', $handle, SQLITE3_TEXT) ;
+	$check->bindParam(':d', $did, SQLITE3_TEXT) ;
+	$search = $check->execute() ;
 
-	$ok = $register->execute() ;
+	if ($search->fetchArray(SQLITE3_ASSOC) === false) {
+		// we're ok to insert,
+		$register = $db->prepare("INSERT INTO usermap VALUES ( :u, :d )") ;
+		$register->bindParam(':u', $handle, SQLITE3_TEXT) ;
+		$register->bindParam(':d', $did, SQLITE3_TEXT) ;
+
+		$ok = $register->execute() ;
+	} else {
+		error_page('Either the handle or the DID you entered is already in use') ;
+	}
+
 
 	$db->close() ;
 
@@ -87,9 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<p>This is where we do the actual work of changing your name so that it ends with <?php echo BSKY_DOMAIN ; ?>. First, in the box at the
 		top, enter the domain you want to use, such as <b>sample.<?php echo BSKY_DOMAIN ; ?></b>.</p>
 	<form action="register.php" method="post">
-		<p>Now, enter the same name in this box: <input type="text" name="handle" width="35"></p>
+		<p>Now, enter the same name in this box: <input type="text" name="handle" width="50"></p>
 		<p>Next, click the button labelled <b>Copy File Contents</b> in the box on BlueSky.</p>
-		<p>Then paste the information into this box: <input type="text" name="did" with="35"></p>
+		<p>Then paste the information into this box: <input type="text" name="did" with="50"></p>
 		<p>Check the information is correct; you won't be able to change this later yourself. When you're sure it's ok, click the <b>Save</b>
 			button on this page <em>before</em> clicking anything on BlueSky. Wait until you see the confirmation message appear here,
 			and then on BlueSky click <b>Verify Text File</b>. If all is well, your new BlueSky handle will be active.</p>
@@ -114,6 +126,7 @@ function error_page($text)
 	<h1>Sorry, something went wrong</h1>
 	<p>We couldn't complete your request</p>
 	<p><?= $text; ?></p>
+	<p><a href="register.php">Try again</a></p>
 </body>
 
 </html>
