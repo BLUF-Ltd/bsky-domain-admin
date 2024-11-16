@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$ok = $register->execute() ;
 	} else {
 		error_page('Either the handle or the DID you entered is already in use') ;
+		exit ;
 	}
 
 
@@ -104,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<p>Then paste the information into this box: <input type="text" name="did" with="50"></p>
 		<p>Check the information is correct; you won't be able to change this later yourself. When you're sure it's ok, click the <b>Save</b>
 			button on this page <em>before</em> clicking anything on BlueSky. Wait until you see the confirmation message appear here,
-			and then on BlueSky click <b>Verify Text File</b>. If all is well, your new BlueSky handle will be active.</p>
+			and then follow the instructions to complete the process.</p>
 		<input type="submit" value="Save">
 	</form>
 </body>
