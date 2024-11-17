@@ -17,7 +17,7 @@ $users = $db->query('SELECT user FROM usermap ORDER BY user') ;
 </head>
 
 <body>
-	<h1>The follow users are currently registered for <?php echo BSKY_DOMAIN ; ?></h1>
+	<h1>The following users are currently registered for <?php echo BSKY_DOMAIN ; ?></h1>
 	<p><b>You cannot use one of the names that has already been registered.</b> Click on a name
 		to see the profile on BlueSky.</p>
 	<?php
