@@ -43,6 +43,8 @@ and you'll need to redirect all queries to the .well-known URL to the resolv.php
 
 An example Apache [vhost](vhost.conf) file is included.
 
+There are no additional packages required to get this working.
+
 ## Configuration
 There are a few options in the config.php file, which are designed to make this simple to 
 set up for your own domain.
@@ -67,3 +69,9 @@ your domain.
 *NOTE:* You will almost certainly need to make sure that the user under which the web server
 runs has write permissions in the admin folder, so that it can create and update the SQLite
 database.
+
+In our case, running on Ubuntu, where the webserver has the id www-data that meant executing
+the following commands in the main directory after copying the files
+
+		chgrp www-data admin
+		chmod 775 admin 
